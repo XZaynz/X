@@ -1,5 +1,5 @@
 const CACHE_NAME = 'dgs-math-v1';
-const basePath = location.pathname.includes('/X/') ? '/X' : '';
+const basePath = self.location.pathname.includes('/X/') ? '/X' : '';
 
 const urlsToCache = [
   basePath + '/',
