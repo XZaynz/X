@@ -64,10 +64,12 @@ window.addEventListener('beforeunload', async function() {
     }
 });
 
-// PWA desteği için service worker kaydı (opsiyonel)
+// PWA desteği için service worker kaydı
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
+        // GitHub Pages için path'i otomatik tespit et
+        const swPath = window.location.pathname.includes('/X/') ? '/X/sw.js' : '/sw.js';
+        navigator.serviceWorker.register(swPath)
             .then(function(registration) {
                 console.log('Service Worker başarıyla kaydedildi:', registration.scope);
             })
