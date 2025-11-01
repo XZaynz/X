@@ -1473,17 +1473,17 @@ class ModuleSystem {
         if (isCorrect) {
             resultDiv.innerHTML = '';
             
-            // 500ms sonra yeni soru üret (kısa bir gecikme ile)
+            // 200ms sonra yeni soru üret (çok kısa gecikme)
             setTimeout(() => {
                 this.generateIleriMatematikQuestion();
-            }, 500);
+            }, 200);
         } else {
             resultDiv.innerHTML = '';
             
-            // 1 saniye sonra yeni soru üret
+            // 800ms sonra yeni soru üret
             setTimeout(() => {
                 this.generateIleriMatematikQuestion();
-            }, 1000);
+            }, 800);
         }
     }
 
@@ -2732,24 +2732,71 @@ class ModuleSystem {
         // Üslü sayıyı gerçek formatta göster
         const formattedQuestion = this.formatUsluSayi(question);
         
+        // 3 seçenek oluştur: 1 doğru + 2 yanlış
+        const options = this.generateOptions(answer);
+        
         exerciseContainer.innerHTML = `
             <div class="question-container">
                 <div class="question">${formattedQuestion}</div>
-                <input type="number" id="answer-input" class="answer-input" placeholder="Cevabınızı girin" autocomplete="off">
-                <br>
-                <button class="check-button" onclick="moduleSystem.checkUsluCevapBulmaAnswer(${answer})">Kontrol Et</button>
+                <div class="options-container">
+                    <button class="option-button" onclick="moduleSystem.checkUsluCevapBulmaAnswerFromButton(${answer}, ${options[0]})">${options[0]}</button>
+                    <button class="option-button" onclick="moduleSystem.checkUsluCevapBulmaAnswerFromButton(${answer}, ${options[1]})">${options[1]}</button>
+                    <button class="option-button" onclick="moduleSystem.checkUsluCevapBulmaAnswerFromButton(${answer}, ${options[2]})">${options[2]}</button>
+                </div>
                 <div id="result"></div>
             </div>
         `;
+    }
 
-        // Enter tuşu ile cevap verme
-        const input = document.getElementById('answer-input');
-        input.focus();
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.checkUsluCevapBulmaAnswer(answer);
+    // Üslü cevap bulma cevabını butonlardan kontrol et
+    checkUsluCevapBulmaAnswerFromButton(correctAnswer, userAnswer) {
+        const resultDiv = document.getElementById('result');
+        const isCorrect = userAnswer === correctAnswer;
+        const questionText = document.querySelector('.question').textContent;
+        
+        // Tüm butonları devre dışı bırak
+        const buttons = document.querySelectorAll('.option-button');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+        });
+        
+        // Seçilen butonu vurgula
+        buttons.forEach(btn => {
+            if (parseInt(btn.textContent) === userAnswer) {
+                if (isCorrect) {
+                    btn.style.background = 'rgba(34, 197, 94, 0.2)';
+                    btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                } else {
+                    btn.style.background = 'rgba(239, 68, 68, 0.2)';
+                    btn.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+                }
+            } else if (parseInt(btn.textContent) === correctAnswer && !isCorrect) {
+                // Doğru cevabı göster
+                btn.style.background = 'rgba(34, 197, 94, 0.2)';
+                btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
             }
         });
+        
+        // İstatistikleri güncelle
+        this.updateUsluCevapBulmaStats(questionText, isCorrect);
+        
+        if (isCorrect) {
+            resultDiv.innerHTML = '';
+            
+            // 200ms sonra yeni soru üret (çok kısa gecikme)
+            setTimeout(() => {
+                this.generateUsluCevapBulmaQuestion();
+            }, 200);
+        } else {
+            resultDiv.innerHTML = '';
+            
+            // 800ms sonra yeni soru üret
+            setTimeout(() => {
+                this.generateUsluCevapBulmaQuestion();
+            }, 800);
+        }
     }
 
     // Üslü cevap bulma cevabını kontrol et
@@ -3830,24 +3877,71 @@ class ModuleSystem {
     showFaktoriyelCevapBulma1Question(question, answer) {
         const exerciseContainer = document.getElementById('exercise-container');
         
+        // 3 seçenek oluştur: 1 doğru + 2 yanlış
+        const options = this.generateOptions(answer);
+        
         exerciseContainer.innerHTML = `
             <div class="question-container">
                 <div class="question">${question} kaçtır?</div>
-                <input type="number" id="answer-input" class="answer-input" placeholder="Cevabınızı girin" autocomplete="off">
-                <br>
-                <button class="check-button" onclick="moduleSystem.checkFaktoriyelCevapBulma1Answer(${answer})">Kontrol Et</button>
+                <div class="options-container">
+                    <button class="option-button" onclick="moduleSystem.checkFaktoriyelCevapBulma1AnswerFromButton(${answer}, ${options[0]})">${options[0]}</button>
+                    <button class="option-button" onclick="moduleSystem.checkFaktoriyelCevapBulma1AnswerFromButton(${answer}, ${options[1]})">${options[1]}</button>
+                    <button class="option-button" onclick="moduleSystem.checkFaktoriyelCevapBulma1AnswerFromButton(${answer}, ${options[2]})">${options[2]}</button>
+                </div>
                 <div id="result"></div>
             </div>
         `;
+    }
 
-        // Enter tuşu ile cevap verme
-        const input = document.getElementById('answer-input');
-        input.focus();
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.checkFaktoriyelCevapBulma1Answer(answer);
+    // Faktöriyel cevap bulma 1 (1-6!) cevabını butonlardan kontrol et
+    checkFaktoriyelCevapBulma1AnswerFromButton(correctAnswer, userAnswer) {
+        const resultDiv = document.getElementById('result');
+        const isCorrect = userAnswer === correctAnswer;
+        const questionText = document.querySelector('.question').textContent;
+        
+        // Tüm butonları devre dışı bırak
+        const buttons = document.querySelectorAll('.option-button');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+        });
+        
+        // Seçilen butonu vurgula
+        buttons.forEach(btn => {
+            if (parseInt(btn.textContent) === userAnswer) {
+                if (isCorrect) {
+                    btn.style.background = 'rgba(34, 197, 94, 0.2)';
+                    btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                } else {
+                    btn.style.background = 'rgba(239, 68, 68, 0.2)';
+                    btn.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+                }
+            } else if (parseInt(btn.textContent) === correctAnswer && !isCorrect) {
+                // Doğru cevabı göster
+                btn.style.background = 'rgba(34, 197, 94, 0.2)';
+                btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
             }
         });
+        
+        // İstatistikleri güncelle
+        this.updateStats(questionText, isCorrect);
+        
+        if (isCorrect) {
+            resultDiv.innerHTML = '';
+            
+            // 200ms sonra yeni soru üret (çok kısa gecikme)
+            setTimeout(() => {
+                this.generateFaktoriyelCevapBulma1Question();
+            }, 200);
+        } else {
+            resultDiv.innerHTML = '';
+            
+            // 800ms sonra yeni soru üret
+            setTimeout(() => {
+                this.generateFaktoriyelCevapBulma1Question();
+            }, 800);
+        }
     }
 
     // Faktöriyel cevap bulma 1 (1-6!) cevabını kontrol et
@@ -3987,24 +4081,71 @@ class ModuleSystem {
     showFaktoriyelCevapBulma2Question(question, answer) {
         const exerciseContainer = document.getElementById('exercise-container');
         
+        // 3 seçenek oluştur: 1 doğru + 2 yanlış
+        const options = this.generateOptions(answer);
+        
         exerciseContainer.innerHTML = `
             <div class="question-container">
                 <div class="question">${question} kaçtır?</div>
-                <input type="number" id="answer-input" class="answer-input" placeholder="Cevabınızı girin" autocomplete="off">
-                <br>
-                <button class="check-button" onclick="moduleSystem.checkFaktoriyelCevapBulma2Answer(${answer})">Kontrol Et</button>
+                <div class="options-container">
+                    <button class="option-button" onclick="moduleSystem.checkFaktoriyelCevapBulma2AnswerFromButton(${answer}, ${options[0]})">${options[0]}</button>
+                    <button class="option-button" onclick="moduleSystem.checkFaktoriyelCevapBulma2AnswerFromButton(${answer}, ${options[1]})">${options[1]}</button>
+                    <button class="option-button" onclick="moduleSystem.checkFaktoriyelCevapBulma2AnswerFromButton(${answer}, ${options[2]})">${options[2]}</button>
+                </div>
                 <div id="result"></div>
             </div>
         `;
+    }
 
-        // Enter tuşu ile cevap verme
-        const input = document.getElementById('answer-input');
-        input.focus();
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.checkFaktoriyelCevapBulma2Answer(answer);
+    // Faktöriyel cevap bulma 2 (7-10!) cevabını butonlardan kontrol et
+    checkFaktoriyelCevapBulma2AnswerFromButton(correctAnswer, userAnswer) {
+        const resultDiv = document.getElementById('result');
+        const isCorrect = userAnswer === correctAnswer;
+        const questionText = document.querySelector('.question').textContent;
+        
+        // Tüm butonları devre dışı bırak
+        const buttons = document.querySelectorAll('.option-button');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+        });
+        
+        // Seçilen butonu vurgula
+        buttons.forEach(btn => {
+            if (parseInt(btn.textContent) === userAnswer) {
+                if (isCorrect) {
+                    btn.style.background = 'rgba(34, 197, 94, 0.2)';
+                    btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                } else {
+                    btn.style.background = 'rgba(239, 68, 68, 0.2)';
+                    btn.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+                }
+            } else if (parseInt(btn.textContent) === correctAnswer && !isCorrect) {
+                // Doğru cevabı göster
+                btn.style.background = 'rgba(34, 197, 94, 0.2)';
+                btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
             }
         });
+        
+        // İstatistikleri güncelle
+        this.updateStats(questionText, isCorrect);
+        
+        if (isCorrect) {
+            resultDiv.innerHTML = '';
+            
+            // 200ms sonra yeni soru üret (çok kısa gecikme)
+            setTimeout(() => {
+                this.generateFaktoriyelCevapBulma2Question();
+            }, 200);
+        } else {
+            resultDiv.innerHTML = '';
+            
+            // 800ms sonra yeni soru üret
+            setTimeout(() => {
+                this.generateFaktoriyelCevapBulma2Question();
+            }, 800);
+        }
     }
 
     // Faktöriyel cevap bulma 2 (7-10!) cevabını kontrol et
@@ -6472,17 +6613,17 @@ class ModuleSystem {
         if (isCorrect) {
             resultDiv.innerHTML = '';
             
-            // 500ms sonra yeni soru üret (kısa bir gecikme ile)
+            // 200ms sonra yeni soru üret (çok kısa gecikme)
             setTimeout(() => {
                 this.generateQuestion();
-            }, 500);
+            }, 200);
         } else {
             resultDiv.innerHTML = '';
             
-            // 1 saniye sonra yeni soru üret
+            // 800ms sonra yeni soru üret
             setTimeout(() => {
                 this.generateQuestion();
-            }, 1000);
+            }, 800);
         }
     }
 

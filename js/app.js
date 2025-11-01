@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         moduleSystem.showMainModules();
         
         // Sayfa başlığını güncelle
-        document.title = 'DGS Matematik Uygulaması';
+        document.title = 'Pratik';
         
         // Konsola hoş geldin mesajı
         console.log('DGS Matematik Uygulaması başlatıldı! 🚀');
