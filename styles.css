@@ -1,0 +1,703 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0a;
+    min-height: 100vh;
+    color: #ffffff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+header {
+    text-align: center;
+    margin: 80px 0 100px 0;
+    position: relative;
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 4rem;
+    font-weight: 300;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #335AD4, transparent);
+}
+
+#main-content {
+    background: transparent;
+    padding: 0;
+    min-height: 600px;
+    position: relative;
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.module-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.module-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #335AD4, transparent);
+    transform: scaleX(0);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.module-card:hover::before {
+    transform: scaleX(1);
+}
+
+.module-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(51, 90, 212, 0.4);
+    box-shadow: 0 20px 60px rgba(51, 90, 212, 0.15);
+}
+
+.module-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 2;
+}
+
+.module-card p {
+    opacity: 0.7;
+    font-size: 1rem;
+    color: #a0a0a0;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+}
+
+.module-card::after {
+    content: '→';
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    font-size: 1.5rem;
+    color: #335AD4;
+    opacity: 0;
+    transition: all 0.4s ease;
+    transform: translateX(-10px);
+}
+
+.module-card:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sub-module {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.sub-module::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #335AD4;
+    transform: scaleY(0);
+    transition: transform 0.4s ease;
+}
+
+.sub-module:hover::before {
+    transform: scaleY(1);
+}
+
+.sub-module:hover {
+    transform: translateX(8px);
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(51, 90, 212, 0.3);
+}
+
+.sub-module h4 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+}
+
+.back-button {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 40px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.back-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.back-button:hover::before {
+    left: 100%;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.question-container {
+    text-align: center;
+    padding: 60px 40px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    margin: 40px 0;
+}
+
+.question {
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: #ffffff;
+    margin: 40px 0;
+    line-height: 1.2;
+    padding: 40px;
+    letter-spacing: -1px;
+    position: relative;
+}
+
+.question::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+ 
+}
+
+.question::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+
+}
+
+/* Kesir formatı için özel stiller */
+.question .kesir-container {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 12px;
+    font-family: 'Times New Roman', serif;
+}
+
+.question .kesir-pay {
+    font-size: 1.2em;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.question .kesir-cizgi {
+    border-top: 2px solid #335AD4;
+    margin: 3px 0;
+    min-width: 30px;
+}
+
+.question .kesir-payda {
+    font-size: 1.2em;
+    font-weight: 400;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.answer-input {
+    font-size: 1.8rem;
+    padding: 20px 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    width: 250px;
+    text-align: center;
+    margin: 30px 0;
+    transition: all 0.4s ease;
+    background: rgba(255, 255, 255, 0.02);
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px);
+}
+
+/* Remove spinner/dropdown arrows from input */
+.answer-input::-webkit-outer-spin-button,
+.answer-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.answer-input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.answer-input::-ms-clear,
+.answer-input::-ms-expand {
+    display: none;
+}
+
+/* For Firefox */
+.answer-input {
+    -moz-appearance: textfield;
+}
+
+
+.answer-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.check-button {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #335AD4;
+    padding: 18px 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 20px;
+    transition: all 0.4s ease;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.check-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #335AD4;
+    transition: width 0.4s ease;
+    z-index: -1;
+}
+
+.check-button:hover::before {
+    width: 100%;
+}
+
+.check-button:hover {
+    color: #0a0a0a;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(51, 90, 212, 0.3);
+}
+
+.result {
+    font-size: 1.4rem;
+    margin: 30px 0;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 400;
+    border: 1px solid;
+    backdrop-filter: blur(15px);
+    letter-spacing: 0.5px;
+}
+
+.result.correct {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.result.incorrect {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.stats {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 20px;
+    margin-top: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stats h3 {
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-weight: 400;
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(51, 90, 212, 0.3);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #335AD4;
+    letter-spacing: -1px;
+}
+
+.stat-label {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Doğruluk yüzdesi rozetleri */
+.accuracy-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #ffffff;
+    min-width: 50px;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.accuracy-excellent {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.accuracy-good {
+    background: rgba(51, 90, 212, 0.15);
+    border-color: rgba(51, 90, 212, 0.4);
+}
+
+.accuracy-average {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+.accuracy-below-average {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.accuracy-poor {
+    background: rgba(220, 38, 38, 0.15);
+    border-color: rgba(220, 38, 38, 0.4);
+}
+
+/* Modül kartları ve alt modüller için pozisyon ayarı */
+.module-card, .sub-module {
+    position: relative;
+}
+
+/* Çoktan seçmeli şıklar için stiller */
+.options-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.option-button {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(15px);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 400;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(51, 90, 212, 0.05), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.option-button:hover::before {
+    transform: translateX(100%);
+}
+
+.option-button:hover {
+    transform: translateY(-5px);
+    border-color: rgba(51, 90, 212, 0.4);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 15px 40px rgba(51, 90, 212, 0.15);
+}
+
+.option-button:active {
+    transform: translateY(-2px);
+}
+
+.option-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Üslü sayı formatı için özel stiller */
+.option-button sup {
+    font-size: 0.8em;
+    vertical-align: super;
+    line-height: 1;
+}
+
+/* Üslü sayı butonları için özel renkler */
+.option-button[onclick*="checkUsluSayiBulmaAnswer"] {
+    background: rgba(51, 90, 212, 0.05);
+    border-color: rgba(51, 90, 212, 0.3);
+}
+
+.option-button[onclick*="checkUsluSayiBulmaAnswer"]:hover {
+    background: rgba(51, 90, 212, 0.08);
+    border-color: rgba(51, 90, 212, 0.5);
+}
+
+/* Reset butonu stilleri */
+.reset-button {
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 15px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: all 0.4s ease;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.reset-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(239, 68, 68, 0.1);
+    transition: width 0.4s ease;
+    z-index: -1;
+}
+
+.reset-button:hover::before {
+    width: 100%;
+}
+
+.reset-button:hover {
+    border-color: rgba(239, 68, 68, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+}
+
+footer {
+    text-align: center;
+    margin-top: 100px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    padding: 40px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animasyonlar kaldırıldı */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    header {
+        margin: 60px 0 80px 0;
+    }
+    
+    header h1 {
+        font-size: 2.5rem;
+        letter-spacing: -1px;
+    }
+    
+    .module-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .question {
+        font-size: 2.5rem;
+        padding: 30px 20px;
+    }
+    
+    .answer-input {
+        width: 200px;
+        font-size: 1.5rem;
+        padding: 18px 20px;
+    }
+    
+    .options-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 30px 0;
+    }
+    
+    .option-button {
+        font-size: 1.2rem;
+        padding: 25px 20px;
+        min-height: 80px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(51, 90, 212, 0.3);
+    }
+    
+    .module-card {
+        padding: 30px 25px;
+        min-height: 240px;
+    }
+    
+    .module-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .module-card p {
+        font-size: 0.9rem;
+    }
+    
+    .sub-module {
+        padding: 20px 18px;
+        margin-bottom: 15px;
+    }
+    
+    .sub-module h4 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .back-button {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
