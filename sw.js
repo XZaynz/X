@@ -1,15 +1,14 @@
 const CACHE_NAME = 'dgs-math-v1';
-const basePath = self.location.pathname.includes('/X/') ? '/X' : '';
 
+// Relative paths kullan - GitHub Pages path'inden bağımsız çalışır
 const urlsToCache = [
-  basePath + '/',
-  basePath + '/index.html',
-  basePath + '/styles.css',
-  basePath + '/js/app.js',
-  basePath + '/js/modules.js',
-  basePath + '/js/database.js',
-  basePath + '/icon.png',
-  basePath + '/manifest.json'
+  './',
+  './index.html',
+  './styles.css',
+  './js/app.js',
+  './js/modules.js',
+  './js/database.js',
+  './manifest.json'
 ];
 
 // Install event - cache files
@@ -36,8 +35,7 @@ self.addEventListener('fetch', (event) => {
       })
       .catch(() => {
         // If both fail, return offline page if available
-        const offlinePath = basePath ? basePath + '/index.html' : '/index.html';
-        return caches.match(offlinePath);
+        return caches.match('./index.html');
       })
   );
 });
