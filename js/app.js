@@ -67,8 +67,8 @@ window.addEventListener('beforeunload', async function() {
 // PWA desteği için service worker kaydı
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        // Relative path kullan - GitHub Pages path'inden bağımsız çalışır
-        navigator.serviceWorker.register('./sw.js')
+        // GitHub Pages için /X/ path'i
+        navigator.serviceWorker.register('/X/sw.js', { scope: '/X/' })
             .then(function(registration) {
                 console.log('Service Worker başarıyla kaydedildi:', registration.scope);
             })

@@ -1,14 +1,16 @@
 const CACHE_NAME = 'dgs-math-v1';
 
-// Relative paths kullan - GitHub Pages path'inden bağımsız çalışır
+// GitHub Pages için /X/ path'i
+const basePath = '/X/';
+
 const urlsToCache = [
-  './',
-  './index.html',
-  './styles.css',
-  './js/app.js',
-  './js/modules.js',
-  './js/database.js',
-  './manifest.json'
+  basePath,
+  basePath + 'index.html',
+  basePath + 'styles.css',
+  basePath + 'js/app.js',
+  basePath + 'js/modules.js',
+  basePath + 'js/database.js',
+  basePath + 'manifest.json'
 ];
 
 // Install event - cache files
@@ -35,7 +37,7 @@ self.addEventListener('fetch', (event) => {
       })
       .catch(() => {
         // If both fail, return offline page if available
-        return caches.match('./index.html');
+        return caches.match(basePath + 'index.html');
       })
   );
 });
